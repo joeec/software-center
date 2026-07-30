@@ -1,0 +1,12 @@
+{
+  "name": "software-center",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Catálogo interno de software para Windows",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
