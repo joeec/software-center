@@ -1,180 +1,377 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Software Center: catálogo seguro de aplicaciones esenciales para Windows."
+      content="Software Center: Catálogo sobrio y verificado de aplicaciones esenciales para Windows con descargas directas oficiales."
     />
     <meta name="color-scheme" content="light dark" />
-    <title>Software Center — Aplicaciones para Windows</title>
+    <title>Software Center — Aplicaciones Esenciales para Windows</title>
     <link rel="icon" href="assets/icons/software-center.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/elegant.css" />
-    <script src="js/app.js" type="module"></script>
+    <script src="data/apps-data.js" defer></script>
+    <script src="js/app.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#catalogo">Saltar al catálogo</a>
 
-    <header class="site-header">
-      <a class="brand" href="#" aria-label="Software Center, inicio">
-        <img src="assets/icons/software-center.svg" alt="" width="40" height="40" />
-        <span>
-          <strong>Software Center</strong>
-          <small>Windows apps, en un solo lugar</small>
-        </span>
-      </a>
+    <!-- Barra de Navegación Translúcida Estilo Apple -->
+    <header class="apple-nav">
+      <div class="apple-container">
+        <nav class="apple-nav-inner" aria-label="Navegación principal">
+          <!-- Marca Apple Minimalista -->
+          <a class="apple-brand" href="#" aria-label="Software Center, inicio">
+            <div class="apple-brand-icon">
+              <img src="assets/icons/software-center.svg" alt="" width="20" height="20" />
+            </div>
+            <span class="apple-brand-name">Software Center</span>
+          </a>
 
-      <div class="header-actions">
-        <span class="security-label" title="Los enlaces apuntan a sitios de fabricantes">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.9 8.8 7 10 4.1-1.2 7-5.4 7-10V6l-7-3Zm3.6 6.8-4.3 4.4-2.4-2.4 1.1-1.1 1.3 1.3 3.2-3.3 1.1 1.1Z"/></svg>
-          Fuentes oficiales
-        </span>
-        <button class="icon-button" id="theme-toggle" type="button" aria-label="Cambiar a tema oscuro">
-          <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 17.2A5.2 5.2 0 1 0 12 6.8a5.2 5.2 0 0 0 0 10.4ZM12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
-          <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.4 15.2A8.6 8.6 0 0 1 8.8 3.6 8.6 8.6 0 1 0 20.4 15.2Z"/></svg>
-        </button>
+          <!-- Buscador Spotlight -->
+          <div class="apple-search-wrap">
+            <div class="apple-search-box">
+              <svg class="apple-search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                id="search"
+                class="apple-search-input"
+                type="search"
+                placeholder="Buscar programa o categoría…"
+                autocomplete="off"
+                aria-label="Buscar en el catálogo"
+              />
+              <button id="clear-search" class="apple-clear-btn" type="button" aria-label="Limpiar búsqueda">✕</button>
+              <kbd class="apple-search-kbd">⌘K</kbd>
+            </div>
+          </div>
+
+          <!-- Controles de Navegación -->
+          <div class="apple-nav-actions">
+            <!-- Botón Instalación por Lotes -->
+            <button id="btn-open-winget" class="apple-btn-pill subtle" type="button" title="Instalar varios programas por comando">
+              <span>Instalar por lote</span>
+            </button>
+
+            <!-- Selector Segmentado Cuadrícula / Lista -->
+            <div class="apple-segmented-switcher" role="group" aria-label="Vista del catálogo">
+              <button id="btn-view-grid" class="apple-segment-btn active" type="button" title="Vista en cuadrícula" aria-pressed="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                </svg>
+              </button>
+              <button id="btn-view-list" class="apple-segment-btn" type="button" title="Vista en lista" aria-pressed="false">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <circle cx="4" cy="6" r="1.5" fill="currentColor"></circle>
+                  <circle cx="4" cy="12" r="1.5" fill="currentColor"></circle>
+                  <circle cx="4" cy="18" r="1.5" fill="currentColor"></circle>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Alternar Tema Claro / Oscuro -->
+            <button id="theme-toggle" class="apple-theme-toggle" type="button" aria-label="Cambiar tema" title="Modo claro / oscuro">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </button>
+          </div>
+        </nav>
       </div>
     </header>
 
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow"><span></span> Catálogo verificado para Windows <b>2026</b></p>
-          <h1 id="hero-title">Tus herramientas esenciales.<br /><em>Siempre actualizadas.</em></h1>
-          <p>
-            Encuentra y descarga software confiable directamente desde sus fabricantes.
-            Sin intermediarios, instaladores almacenados ni sorpresas.
-          </p>
+    <main class="apple-container">
+      <!-- Portada Cinematográfica Estilo Apple -->
+      <section class="apple-hero-section" aria-labelledby="hero-title">
+        <span class="apple-hero-eyebrow">CATÁLOGO OFICIAL · WINDOWS</span>
+        <h1 id="hero-title" class="apple-hero-title">
+          <span class="hero-line-1">Software esencial.</span><br />
+          <span class="hero-line-2">Para tu equipo, sin intermediarios.</span>
+        </h1>
+        <p class="apple-hero-lead">
+          Una selección curada y legítima de los programas más confiables. Descargas directas desde los servidores oficiales de cada desarrollador.
+        </p>
+        <div class="apple-dynamic-island" role="status" aria-label="Métricas del catálogo">
+          <span class="island-item"><strong id="app-count">16</strong> aplicaciones</span>
+          <span class="island-dot"></span>
+          <span class="island-item"><strong id="category-count">8</strong> categorías</span>
+          <span class="island-dot"></span>
+          <span class="island-item"><strong>100%</strong> fuentes oficiales</span>
+        </div>
+      </section>
 
-          <div class="hero-stats" aria-label="Resumen del catálogo">
-            <div><strong id="app-count">—</strong><span>Aplicaciones</span></div>
-            <div><strong id="category-count">—</strong><span>Categorías</span></div>
-            <div><strong>100%</strong><span>Fuentes oficiales</span></div>
-          </div>
-          <div class="hero-proof">
-            <span class="proof-icons">
-              <img src="assets/icons/chrome.svg" alt="" />
-              <img src="assets/icons/python.svg" alt="" />
-              <img src="assets/icons/teams.svg" alt="" />
-            </span>
-            <span><strong>Selección confiable</strong><small>Software esencial para tu equipo</small></span>
+      <!-- Bento Grid Asimétrico: Colección Destacada ("Los Imprescindibles") -->
+      <section class="apple-bento-section" aria-labelledby="bento-heading">
+        <div class="apple-section-header">
+          <div>
+            <h2 id="bento-heading" class="apple-section-title">Colección destacada</h2>
+            <span class="apple-section-caption">Recomendados para comenzar</span>
           </div>
         </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="orb orb-one"></div>
-          <div class="orb orb-two"></div>
-          <div class="window-preview">
-            <div class="preview-bar">
-              <span></span><span></span><span></span>
-              <div></div>
-            </div>
-            <div class="preview-body">
-              <div class="preview-sidebar"><b></b><i></i><i></i><i></i><i></i></div>
-              <div class="preview-grid">
-                <div><img src="assets/icons/chrome.svg" alt="" /></div>
-                <div><img src="assets/icons/vscode.svg" alt="" /></div>
-                <div><img src="assets/icons/python.svg" alt="" /></div>
-                <div><img src="assets/icons/winrar.svg" alt="" /></div>
+        <div class="apple-bento-grid">
+          <!-- Tarjeta Principal Asimétrica Hero (Visual Studio Code) -->
+          <article class="bento-card bento-card-primary" data-app-id="visual-studio-code" tabindex="0" role="button" aria-label="Ver detalles de Visual Studio Code">
+            <div class="bento-card-header">
+              <div class="apple-squircle-icon bento-hero-squircle">
+                <img src="assets/icons/vscode.svg" alt="" width="48" height="48" />
+              </div>
+              <div class="bento-badge-group">
+                <span class="bento-tag-hero">Editor estrella</span>
+                <span class="bento-badge">Desarrollo</span>
               </div>
             </div>
+            <div class="bento-card-body">
+              <h3 class="bento-title-hero">Visual Studio Code</h3>
+              <p class="bento-desc-hero">
+                El editor de código estándar de la industria mundial. Ligero, altamente extensible y respaldado por Microsoft y una comunidad global.
+              </p>
+              <div class="bento-hero-tech-row">
+                <span>Microsoft Corporation</span>
+                <span class="meta-dot">·</span>
+                <span>Windows 10/11</span>
+                <span class="meta-dot">·</span>
+                <span class="card-mono-meta">winget: Microsoft.VisualStudioCode</span>
+              </div>
+            </div>
+            <div class="bento-card-footer">
+              <span class="bento-file-meta">v1.97 · ≈ 95 MB</span>
+              <a href="https://update.code.visualstudio.com/latest/win32-x64-user/stable" class="apple-get-btn" target="_blank" rel="noopener noreferrer" data-stop aria-label="Obtener Visual Studio Code">
+                Obtener
+              </a>
+            </div>
+          </article>
+
+          <!-- Columna Lateral de 2 Tarjetas Complementarias Compactas -->
+          <div class="bento-companion-col">
+            <!-- Tarjeta Complementaria 1: Google Chrome -->
+            <article class="bento-card bento-card-compact" data-app-id="google-chrome" tabindex="0" role="button" aria-label="Ver detalles de Google Chrome">
+              <div class="bento-compact-header">
+                <div class="apple-squircle-icon bento-compact-squircle">
+                  <img src="assets/icons/chrome.svg" alt="" width="34" height="34" />
+                </div>
+                <div class="bento-compact-titles">
+                  <span class="bento-badge">Navegadores</span>
+                  <h3>Google Chrome</h3>
+                  <span class="bento-compact-dev">Google LLC</span>
+                </div>
+              </div>
+              <p class="bento-compact-desc">
+                Navegación veloz, sincronización fluida entre dispositivos y estándares web de última generación.
+              </p>
+              <div class="bento-card-footer">
+                <span class="bento-file-meta">≈ 1.4 MB · Online</span>
+                <a href="https://dl.google.com/chrome/install/latest/chrome_installer.exe" class="apple-get-btn" target="_blank" rel="noopener noreferrer" data-stop aria-label="Obtener Google Chrome">
+                  Obtener
+                </a>
+              </div>
+            </article>
+
+            <!-- Tarjeta Complementaria 2: AnyDesk -->
+            <article class="bento-card bento-card-compact" data-app-id="anydesk" tabindex="0" role="button" aria-label="Ver detalles de AnyDesk">
+              <div class="bento-compact-header">
+                <div class="apple-squircle-icon bento-compact-squircle">
+                  <img src="assets/icons/anydesk.svg" alt="" width="34" height="34" />
+                </div>
+                <div class="bento-compact-titles">
+                  <span class="bento-badge">Acceso remoto</span>
+                  <h3>AnyDesk</h3>
+                  <span class="bento-compact-dev">AnyDesk Software GmbH</span>
+                </div>
+              </div>
+              <p class="bento-compact-desc">
+                Control remoto de baja latencia con códec propietario DeskRT para soporte técnico inmediato.
+              </p>
+              <div class="bento-card-footer">
+                <span class="bento-file-meta">≈ 9 MB · Portable</span>
+                <a href="https://download.anydesk.com/AnyDesk.exe" class="apple-get-btn" target="_blank" rel="noopener noreferrer" data-stop aria-label="Obtener AnyDesk">
+                  Obtener
+                </a>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="catalog-section" id="catalogo" aria-labelledby="catalog-title">
-        <div class="catalog-heading">
-          <div>
-            <p class="section-kicker">Explorar aplicaciones</p>
-            <h2 id="catalog-title">Todo lo que necesitas</h2>
+      <!-- Catálogo Completo con Segmented Control de Apple -->
+      <section id="catalogo" class="apple-catalog-section" aria-labelledby="catalog-heading">
+        <div class="apple-filter-bar">
+          <div class="apple-section-header" style="margin-bottom:0;">
+            <h2 id="catalog-heading" class="apple-section-title">Explorar catálogo</h2>
           </div>
-          <p id="result-count" aria-live="polite">Cargando catálogo…</p>
+
+          <!-- Pestañas Segmentadas Estilo Apple con Indicador Deslizante -->
+          <div class="apple-segmented-wrapper">
+            <div class="apple-segmented-tabs" id="category-filters" role="tablist" aria-label="Categorías">
+              <div class="segmented-thumb" id="segmented-thumb" aria-hidden="true"></div>
+            </div>
+          </div>
+
+          <div class="apple-catalog-meta-row">
+            <span id="result-count">Cargando programas…</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;color:var(--apple-text-tertiary);">Ordenar por:</span>
+              <select id="sort-select" class="apple-sort-select" aria-label="Ordenar">
+                <option value="default">Recomendados</option>
+                <option value="name-asc">Nombre (A - Z)</option>
+                <option value="name-desc">Nombre (Z - A)</option>
+                <option value="category">Categoría</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <div class="toolbar">
-          <label class="search-box" for="search">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m20 20-4.6-4.6m2.5-5.2a7.7 7.7 0 1 1-15.4 0 7.7 7.7 0 0 1 15.4 0Z"/></svg>
-            <input id="search" type="search" placeholder="Buscar por nombre, empresa o descripción…" autocomplete="off" />
-            <kbd>Ctrl K</kbd>
-          </label>
-          <div class="category-filter" id="category-filter" aria-label="Filtrar por categoría"></div>
-        </div>
+        <!-- Rejilla / Lista de Aplicaciones -->
+        <div id="apps-container" class="apple-grid" aria-live="polite"></div>
 
-        <div class="app-grid" id="app-grid" aria-live="polite" aria-busy="true"></div>
-
-        <div class="empty-state" id="empty-state" hidden>
-          <div>
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m20 20-4.5-4.5m2.3-5.4a7.7 7.7 0 1 1-15.4 0 7.7 7.7 0 0 1 15.4 0Z"/></svg>
-          </div>
-          <h3>No encontramos esa aplicación</h3>
-          <p>Prueba con otro nombre o selecciona una categoría diferente.</p>
-          <button id="clear-filters" class="button button-primary" type="button">Limpiar filtros</button>
+        <!-- Estado Vacío -->
+        <div id="empty-state" class="apple-empty-state" hidden>
+          <h3>Ningún resultado</h3>
+          <p>No encontramos aplicaciones que coincidan con tu búsqueda. Intenta con otros términos.</p>
+          <button id="btn-reset-filters" class="apple-btn-pill primary" type="button">
+            Mostrar todas las aplicaciones
+          </button>
         </div>
       </section>
 
-      <section class="trust-banner" aria-label="Política de descargas">
-        <div class="trust-icon">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.9 8.8 7 10 4.1-1.2 7-5.4 7-10V6l-7-3Zm3.6 6.8-4.3 4.4-2.4-2.4 1.1-1.1 1.3 1.3 3.2-3.3 1.1 1.1Z"/></svg>
+      <!-- Filosofía de Confianza Apple (3 Columnas con Espaciado Sobrio) -->
+      <section class="apple-trust-section" aria-label="Garantías de seguridad">
+        <div class="apple-trust-col">
+          <h3>Fuentes oficiales</h3>
+          <p>Cada enlace de descarga te conecta directamente a la infraestructura oficial del fabricante, sin intermediarios ni copias modificadas.</p>
         </div>
-        <div>
-          <h2>Descargas seguras, siempre</h2>
-          <p>Cada enlace te conecta directamente con la infraestructura oficial del fabricante. Software Center no aloja ni modifica instaladores.</p>
+        <div class="apple-trust-col">
+          <h3>Integridad intacta</h3>
+          <p>Los instaladores originales conservan sus firmas digitales de fábrica, libres de publicidad o paquetes de software añadido.</p>
         </div>
-        <span class="trust-badge"><i></i> Catálogo verificado</span>
+        <div class="apple-trust-col">
+          <h3>Despliegue ágil</h3>
+          <p>Compatible con Windows Package Manager (Winget) para que puedas automatizar la instalación de múltiples herramientas en un solo comando.</p>
+        </div>
       </section>
     </main>
 
-    <footer>
-      <a class="brand footer-brand" href="#">
-        <img src="assets/icons/software-center.svg" alt="" width="34" height="34" />
-        <strong>Software Center</strong>
-      </a>
-      <p>Software confiable. Descargas oficiales. Una experiencia simple.</p>
-      <p>© <span id="current-year"></span> Software Center</p>
+    <!-- Pie de Página Estándar Apple -->
+    <footer class="apple-footer">
+      <div class="apple-container apple-footer-content">
+        <p class="apple-footer-note">
+          Copyright © <span id="current-year"></span> Software Center. Catálogo independiente para la distribución oficial de software para Windows. Todas las marcas registradas pertenecen a sus respectivos propietarios.
+        </p>
+        <button id="btn-scroll-top" class="apple-btn-pill subtle" style="height:26px;font-size:11px;" type="button">
+          Volver arriba ↑
+        </button>
+      </div>
     </footer>
 
-    <template id="app-card-template">
-      <article class="app-card">
-        <div class="card-top">
-          <div class="app-icon"><img alt="" width="58" height="58" loading="lazy" /></div>
-          <span class="category-badge"></span>
-        </div>
-        <div class="app-info">
-          <h3></h3>
-          <p class="company"></p>
-          <p class="description"></p>
-        </div>
-        <div class="metadata">
-          <span class="os">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 5.2 11 4v7H3V5.2Zm9-1.4 9-1.3V11h-9V3.8ZM3 12h8v7L3 17.8V12Zm9 0h9v7.5l-9-1.3V12Z"/></svg>
-            <b></b>
-          </span>
-          <span class="size"></span>
-        </div>
-        <div class="card-actions">
-          <a class="button button-primary download-button">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
-            <span>Descargar</span>
-          </a>
-          <a class="button button-secondary official-button" target="_blank" rel="noopener noreferrer">
-            <span>Página oficial</span>
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 5h5v5M11 13l8-8M19 14v5H5V5h5"/></svg>
-          </a>
-        </div>
-      </article>
-    </template>
+    <!-- =====================================================================
+         Ventanas Modales Tipo macOS Dialog
+         ===================================================================== -->
+    <!-- Modal: Detalle de la Aplicación -->
+    <div id="detail-modal" class="apple-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-app-name">
+      <div class="apple-modal-window">
+        <button class="apple-modal-close" type="button" aria-label="Cerrar" data-close-modal>✕</button>
 
-    <div class="toast" id="toast" role="status" aria-live="polite">
-      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.9 8.8 7 10 4.1-1.2 7-5.4 7-10V6l-7-3Z"/></svg>
-      <span>Abriendo descarga oficial…</span>
+        <div class="modal-app-header">
+          <div class="modal-squircle">
+            <img id="modal-app-icon" src="" alt="" width="44" height="44" />
+          </div>
+          <div class="modal-header-titles">
+            <h2 id="modal-app-name"></h2>
+            <p id="modal-app-company"></p>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h4 class="modal-section-title">Descripción</h4>
+          <p id="modal-app-description" class="modal-desc-body"></p>
+        </div>
+
+        <div class="modal-section">
+          <h4 class="modal-section-title">Información del sistema</h4>
+          <div style="display:flex;gap:12px;font-size:12px;color:var(--apple-text-secondary);">
+            <span>Categoría: <strong id="modal-app-category" style="color:var(--apple-text);"></strong></span>
+            <span>·</span>
+            <span>Sistema: <strong id="modal-app-os" style="color:var(--apple-text);"></strong></span>
+            <span>·</span>
+            <span>Tamaño: <strong id="modal-app-size" style="color:var(--apple-text);"></strong></span>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h4 class="modal-section-title">Comando Winget para Terminal</h4>
+          <div class="modal-code-pill">
+            <code id="modal-app-winget-cmd">winget install ...</code>
+            <button id="btn-copy-modal-winget" class="apple-btn-pill subtle" style="height:24px;font-size:11px;padding:0 10px;" type="button">
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-footer-btns">
+          <a id="modal-app-download-link" href="#" target="_blank" rel="noopener noreferrer" class="apple-btn-pill primary" style="height:36px;flex:1;">
+            <span id="modal-download-text">Obtener instalador</span>
+          </a>
+          <a id="modal-app-official-link" href="#" target="_blank" rel="noopener noreferrer" class="apple-btn-pill subtle" style="height:36px;">
+            Sitio del fabricante
+          </a>
+        </div>
+      </div>
     </div>
+
+    <!-- Modal: Generador de Script Winget por Lotes -->
+    <div id="winget-modal" class="apple-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="winget-modal-title">
+      <div class="apple-modal-window" style="width:min(600px, 100%);">
+        <button class="apple-modal-close" type="button" aria-label="Cerrar" data-close-modal>✕</button>
+
+        <h2 id="winget-modal-title" style="font-size:20px;font-weight:600;margin-bottom:6px;">Instalador por Lote</h2>
+        <p style="font-size:13px;color:var(--apple-text-secondary);margin-bottom:16px;">Selecciona las aplicaciones que deseas instalar y copia un solo comando para Windows Terminal o PowerShell.</p>
+
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button id="btn-winget-select-all" class="apple-btn-pill subtle" style="height:26px;font-size:11px;" type="button">Marcar todas</button>
+          <button id="btn-winget-select-essentials" class="apple-btn-pill subtle" style="height:26px;font-size:11px;" type="button">Recomendadas</button>
+          <button id="btn-winget-clear-all" class="apple-btn-pill subtle" style="height:26px;font-size:11px;" type="button">Desmarcar</button>
+        </div>
+
+        <div id="winget-checkboxes-container" class="batch-checklist-grid"></div>
+
+        <label for="winget-command-output" class="modal-section-title" style="display:block;margin-bottom:6px;">
+          Comando generado:
+        </label>
+        <textarea id="winget-command-output" class="batch-terminal-output" readonly></textarea>
+
+        <div style="display:flex;justify-content:flex-end;gap:10px;">
+          <button class="apple-btn-pill subtle" type="button" data-close-modal>Cerrar</button>
+          <button id="btn-copy-batch-winget" class="apple-btn-pill primary" type="button">
+            Copiar comando
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor Apple Toast -->
+    <div id="toast-shelf" class="apple-toast-shelf" aria-live="polite"></div>
   </body>
 </html>

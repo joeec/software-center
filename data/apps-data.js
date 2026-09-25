@@ -1,4 +1,7 @@
-[
+// Catálogo de aplicaciones esenciales para Windows
+// Enlaces 100% oficiales y verificados de cada desarrollador
+
+window.APPS_DATA = [
   {
     "id": "google-chrome",
     "nombre": "Google Chrome",
@@ -13,12 +16,7 @@
     "tipoDescarga": "directa",
     "wingetId": "Google.Chrome",
     "destacado": true,
-    "tags": [
-      "navegador",
-      "internet",
-      "web",
-      "google"
-    ]
+    "tags": ["navegador", "internet", "web", "google"]
   },
   {
     "id": "visual-studio-code",
@@ -34,12 +32,7 @@
     "tipoDescarga": "directa",
     "wingetId": "Microsoft.VisualStudioCode",
     "destacado": true,
-    "tags": [
-      "desarrollo",
-      "codigo",
-      "editor",
-      "programacion"
-    ]
+    "tags": ["desarrollo", "codigo", "editor", "programacion"]
   },
   {
     "id": "anydesk",
@@ -55,12 +48,7 @@
     "tipoDescarga": "directa",
     "wingetId": "AnyDeskSoftwareGmbH.AnyDesk",
     "destacado": true,
-    "tags": [
-      "remoto",
-      "soporte",
-      "asistencia",
-      "control"
-    ]
+    "tags": ["remoto", "soporte", "asistencia", "control"]
   },
   {
     "id": "7zip",
@@ -76,13 +64,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "7zip.7zip",
     "destacado": true,
-    "tags": [
-      "compresor",
-      "zip",
-      "rar",
-      "7z",
-      "archivos"
-    ]
+    "tags": ["compresor", "zip", "rar", "7z", "archivos"]
   },
   {
     "id": "vlc-media-player",
@@ -98,12 +80,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "VideoLAN.VLC",
     "destacado": true,
-    "tags": [
-      "reproductor",
-      "video",
-      "musica",
-      "audio"
-    ]
+    "tags": ["reproductor", "video", "musica", "audio"]
   },
   {
     "id": "adobe-reader",
@@ -119,12 +96,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Adobe.Acrobat.Reader.64-bit",
     "destacado": false,
-    "tags": [
-      "pdf",
-      "documentos",
-      "lector",
-      "adobe"
-    ]
+    "tags": ["pdf", "documentos", "lector", "adobe"]
   },
   {
     "id": "mozilla-firefox",
@@ -140,12 +112,7 @@
     "tipoDescarga": "directa",
     "wingetId": "Mozilla.Firefox",
     "destacado": false,
-    "tags": [
-      "navegador",
-      "privacidad",
-      "web",
-      "firefox"
-    ]
+    "tags": ["navegador", "privacidad", "web", "firefox"]
   },
   {
     "id": "microsoft-edge",
@@ -161,12 +128,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Microsoft.Edge",
     "destacado": false,
-    "tags": [
-      "navegador",
-      "microsoft",
-      "edge",
-      "web"
-    ]
+    "tags": ["navegador", "microsoft", "edge", "web"]
   },
   {
     "id": "winrar",
@@ -182,12 +144,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "RARLab.WinRAR",
     "destacado": false,
-    "tags": [
-      "compresor",
-      "rar",
-      "zip",
-      "archivos"
-    ]
+    "tags": ["compresor", "rar", "zip", "archivos"]
   },
   {
     "id": "notepad-plus-plus",
@@ -203,12 +160,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Notepad++.Notepad++",
     "destacado": false,
-    "tags": [
-      "texto",
-      "editor",
-      "bloc",
-      "notas"
-    ]
+    "tags": ["texto", "editor", "bloc", "notas"]
   },
   {
     "id": "python",
@@ -224,12 +176,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Python.Python.3.12",
     "destacado": false,
-    "tags": [
-      "programacion",
-      "desarrollo",
-      "scripts",
-      "ia"
-    ]
+    "tags": ["programacion", "desarrollo", "scripts", "ia"]
   },
   {
     "id": "microsoft-teams",
@@ -245,12 +192,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Microsoft.Teams",
     "destacado": false,
-    "tags": [
-      "reuniones",
-      "chat",
-      "videollamadas",
-      "trabajo"
-    ]
+    "tags": ["reuniones", "chat", "videollamadas", "trabajo"]
   },
   {
     "id": "zoom",
@@ -266,12 +208,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Zoom.Zoom",
     "destacado": false,
-    "tags": [
-      "videollamadas",
-      "reuniones",
-      "conferencias",
-      "zoom"
-    ]
+    "tags": ["videollamadas", "reuniones", "conferencias", "zoom"]
   },
   {
     "id": "citrix-workspace",
@@ -287,12 +224,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Citrix.Workspace",
     "destacado": false,
-    "tags": [
-      "citrix",
-      "remoto",
-      "escritorio",
-      "empresa"
-    ]
+    "tags": ["citrix", "remoto", "escritorio", "empresa"]
   },
   {
     "id": "forticlient",
@@ -308,12 +240,7 @@
     "tipoDescarga": "pagina",
     "wingetId": "Fortinet.FortiClient",
     "destacado": false,
-    "tags": [
-      "vpn",
-      "seguridad",
-      "red",
-      "oficina"
-    ]
+    "tags": ["vpn", "seguridad", "red", "oficina"]
   },
   {
     "id": "dell-command-update",
@@ -329,11 +256,6 @@
     "tipoDescarga": "pagina",
     "wingetId": "Dell.CommandUpdate",
     "destacado": false,
-    "tags": [
-      "drivers",
-      "dell",
-      "actualizaciones",
-      "utilidad"
-    ]
+    "tags": ["drivers", "dell", "actualizaciones", "utilidad"]
   }
-]
+];
